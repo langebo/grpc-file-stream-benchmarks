@@ -1,0 +1,26 @@
+syntax = "proto3";
+
+option csharp_namespace = "FileServer";
+
+package greet;
+
+service DownloadEndpoint {
+  rpc Download (DownloadRequest) returns (stream DownloadChunkResponse);
+  rpc DownloadOld (DownloadRequest) returns (stream DownloadChunkResponse);
+}
+
+message DownloadRequest { 
+  int32 ChunkSize = 1;
+  FileSize FileSize = 2;
+}
+
+message DownloadChunkResponse {
+  bytes Chunk = 1;
+}
+
+enum FileSize {
+  FILE_SIZE_SMALL = 0;
+  FILE_SIZE_MEDIUM = 1;
+  FILE_SIZE_LARGE = 2;
+  FILE_SIZE_HUGE = 3;
+}
